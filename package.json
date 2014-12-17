@@ -1,0 +1,22 @@
+{
+  "name": "changePath",
+  "version": "0.0.1",
+  "description": "Given a new and old object, report changes",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha --watch --reporter spec",
+    "devtest": "mocha --reporter spec"
+  },
+  "author": "Simon McManus",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+      "mocha": "*"
+    },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/simonmcmanus/changePath"
+  }
+}
