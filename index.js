@@ -34,8 +34,9 @@ var changePath = module.exports = function(name, oldData, newData, changes) {
 
 
 function objProperty(name, item, oldData, newData, changes) {
+
     var itemChanges = [];
-    if(typeof oldData[item] === 'undefined') {
+    if(!typeof oldData[item] === 'undefined') {
         changeEmitter(name + '.' + item, 'new property added', null, newData[item], changes);
         return;
     }
