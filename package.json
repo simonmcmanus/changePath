@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --watch --reporter spec",
+    "test": "mocha --watch --recursive --reporter spec",
     "devtest": "mocha --reporter spec"
   },
   "author": "Simon McManus",

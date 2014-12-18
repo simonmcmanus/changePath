@@ -64,12 +64,12 @@ describe('When the hasChanged function is included', function() {
         obj2.key = 'something else';
       });
 
-      it(' should return true', function() {
+      it(' should report the updated value', function() {
         should(hasChanged('name', obj1, obj2)[0]).eql({
           change: 'value changed',
           name: 'name.key',
-          newValue: 'value',
-          oldValue: 'something else'
+          oldValue: 'value',
+          newValue: 'something else'
         });
       });
     });
@@ -83,8 +83,8 @@ describe('When the hasChanged function is included', function() {
         should(hasChanged('name', obj1, obj2)[0]).eql({
           change: 'value changed',
           name: 'name.key',
-          newValue: 1,
-          oldValue: '1'
+          oldValue: 1,
+          newValue: '1'
         });
       });
     });

@@ -1,8 +1,8 @@
 'use strict';
 
 var keysCompare = exports.keysCompare = function(oldKeys, newKeys, name) {
-    console.log(oldKeys);
-    console.log(newKeys);
+    console.log('-->', oldKeys);
+    console.log('-->', newKeys);
     var changes = [];
     var objs = {
         old: {},
@@ -18,6 +18,7 @@ var keysCompare = exports.keysCompare = function(oldKeys, newKeys, name) {
     oldKeys.forEach(function(item, index) {
         if(newKeys.indexOf(item) === -1) {
             deleted[item] = true;
+            console.log('item removed from list');
             changes.push({
                 name: name + '[' + index + ']',
                 change: 'item removed from list',
@@ -38,6 +39,7 @@ var keysCompare = exports.keysCompare = function(oldKeys, newKeys, name) {
 
             var oldPos = oldKeys.indexOf(newKeys[newPos]);
             if(oldPos === -1 && newKeys[newPos]) {
+                console.log('new item added to list');
                 changes.push({
                     name: name + '[' + newPos + ']',
                     change: 'new item added to list',
@@ -47,6 +49,7 @@ var keysCompare = exports.keysCompare = function(oldKeys, newKeys, name) {
                 offset ++;
             }else if(!deleted[oldKeys[a]]) {
                 // item moved.
+                console.log('item moved in list');
                 changes.push({
                     name: name + '[' + a + ']',
                     change: 'item moved in list',
@@ -58,24 +61,35 @@ var keysCompare = exports.keysCompare = function(oldKeys, newKeys, name) {
     }
     return changes;
 };
+/**
+ * Take two arrays of objects (each object needs an id),
+ * and strips to array of ids which can be passed to keysCompare
+ * @param  {[type]} name       [description]
+ * @param  {[type]} oldArr     [description]
+ * @param  {[type]} newArr     [description]
+ * @param  {[type]} changes    [description]
+ * @param  {[type]} changePath [description]
+ * @return {[type]}            [description]
+ */
+exports.objCompare = function(name, oldArr, newArr, changes, changePath) {
+    // needs to ensure we only let in arrays that contain an id.
+    // needs to report on values changed in the array
+    // needs to report on values changed on nested objects.
+    // when comparing old and new needs to account for items which have moved.
+    // needs to add changes in children objects
 
-exports.objCompare = function(oldArr, newArr, name, changePath) {
-
-    var oldObj = {};
-    var newObj = {};
-
-    var oldKeys = oldArr.map(function(item) {
-        oldObj[item.id] = item;
-        return item.id;
-    });
+    var oldKeys = oldArr.map( function(item) { return item.id; } );
 
     var childrenChanges = [];
 
     var newKeys = newArr.map(function(item, index) {
-        childrenChanges = childrenChanges.concat(changePath(name + '[' + index + ']', oldArr[index], newArr[index], null, []));
+        // do we need to account for the index offset here?
+        var itemChanges = changePath(name + '[' + index + ']', oldArr[index], newArr[index], changes);
+        childrenChanges.concat(itemChanges);
         return item.id;
     });
-    console.log('ret');
-    return keysCompare(oldKeys, newKeys, name).concat(childrenChanges);
+
+    var arrChanges = keysCompare(oldKeys, newKeys, name);
+    return arrChanges.concat(childrenChanges);
 
 };

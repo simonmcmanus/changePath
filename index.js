@@ -12,11 +12,13 @@ var arrayCompare = require('./arrayCompare');
  * @param  {Function} iterator A function to be called on each comparison.
  * @return {Boolean}          Do the two objects have the same structure and types?
  */
-var changePath = module.exports = function(name, oldData, newData, changeEmitter, changes) {
+var changePath = module.exports = function(name, oldData, newData, changes) {
+
+//    console.log('cp', oldData, newData);
 
     changes = changes || [];
 
-    changeEmitter = function(name, change, newValue, oldValue) {
+    var changeEmitter = function(name, change, oldValue, newValue) {
         changes.push({
             name: name,
             newValue: newValue,
@@ -26,21 +28,21 @@ var changePath = module.exports = function(name, oldData, newData, changeEmitter
     };
     for(var oldItem in oldData) {
         if(typeof newData[oldItem] === 'undefined') {
-            changeEmitter(name + '.' + oldItem, 'property deleted', null, oldData[oldItem]);
+            changeEmitter(name + '.' + oldItem, 'property deleted', oldData[oldItem], null);
         }
     }
     for(var item in newData) {
-
         if(typeof oldData[item] === 'undefined') {
-            changeEmitter(name + '.' + item, 'new property added', newData[item], null);
+            changeEmitter(name + '.' + item, 'new property added', null, newData[item]);
             continue;
         }
         switch(typeof newData[item]) {
             case 'object':
                 if(newData[item] instanceof Array) {
-                    changes.push(arrayCompare.objCompare(oldData[item], newData[item], name + '.' + item,changePath));
+                    changes = changes.concat(arrayCompare.objCompare(name + '.' + item, oldData[item], newData[item], changes, changePath));
+                    console.log(changes);
                 } else {
-                    var objChanges = changePath(name + '.' + item, oldData[item], newData[item], null, changes);
+                    var objChanges = changePath(name + '.' + item, oldData[item], newData[item], changes);
 
                 }
                 break;
@@ -56,6 +58,6 @@ var changePath = module.exports = function(name, oldData, newData, changeEmitter
                 continue;
         }
     }
-
+console.log('ret', changes);
     return changes;
 };
