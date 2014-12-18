@@ -1,12 +1,12 @@
 'use strict';
-var hasChanged = require('../index');
+var changePath = require('../index');
 
 var should = require('should');
 var sinon = require('sinon');
 
-describe('When the hasChanged function is included', function() {
+describe('When the changePath function is included', function() {
   it('is should return a function', function() {
-    (typeof hasChanged).should.equal('function');
+    (typeof changePath).should.equal('function');
   });
 
   describe('given two objects containging only strings', function() {
@@ -25,7 +25,7 @@ describe('When the hasChanged function is included', function() {
 
     describe(' that contain the same string key values pairs', function() {
       it(' should return an empty array', function() {
-        should(hasChanged('obj', obj1, obj2)).eql([]);
+        should(changePath('obj', obj1, obj2)).eql([]);
       });
     });
 
@@ -37,7 +37,7 @@ describe('When the hasChanged function is included', function() {
           var obj2 = {
             'tea': 'value'
           }
-          result = hasChanged('name', obj1, obj2);
+          result = changePath('name', obj1, obj2);
         });
         it('the first item in the changes array should be the deletion', function() {
           should(result[0]).eql({
@@ -65,7 +65,7 @@ describe('When the hasChanged function is included', function() {
       });
 
       it(' should report the updated value', function() {
-        should(hasChanged('name', obj1, obj2)[0]).eql({
+        should(changePath('name', obj1, obj2)[0]).eql({
           change: 'value changed',
           name: 'name.key',
           oldValue: 'value',
@@ -80,7 +80,7 @@ describe('When the hasChanged function is included', function() {
         obj2.key = '1';
       })
       it('should return an value changed', function() {
-        should(hasChanged('name', obj1, obj2)[0]).eql({
+        should(changePath('name', obj1, obj2)[0]).eql({
           change: 'value changed',
           name: 'name.key',
           oldValue: 1,
@@ -111,7 +111,7 @@ describe('When the hasChanged function is included', function() {
     });
 
     it('should return no changes', function() {
-      should(hasChanged('name', obj1, obj2)).eql([]);
+      should(changePath('name', obj1, obj2)).eql([]);
     });
   });
 
@@ -135,7 +135,7 @@ describe('When the hasChanged function is included', function() {
     });
 
     it('should report the deletion', function() {
-      should(hasChanged('name', obj1, obj2)[0]).eql({
+      should(changePath('name', obj1, obj2)[0]).eql({
         change: 'property deleted',
         name: 'name.key.bogdan',
         newValue: null,
@@ -164,7 +164,7 @@ describe('When the hasChanged function is included', function() {
     });
 
     it('should report the deletion', function() {
-      should(hasChanged('name', obj1, obj2)[0]).eql({
+      should(changePath('name', obj1, obj2)[0]).eql({
         change: 'new property added',
         name: 'name.key.bogdan',
         newValue: 'boggy',

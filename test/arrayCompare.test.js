@@ -12,7 +12,6 @@ describe('when the module is included', function() {
     var oldArr;
     var newArr;
 
-    
     it('is should return a function', function() {
       (typeof arrayCompare.keysCompare).should.equal('function');
     });

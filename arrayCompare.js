@@ -1,6 +1,6 @@
 'use strict';
 
-var keysCompare = exports.keysCompare = function(oldKeys, newKeys, name) {
+var keysCompare = exports.keysCompare = function(oldKeys, newKeys, name, changes) {
     console.log('-->', oldKeys);
     console.log('-->', newKeys);
     var changes = [];
@@ -18,7 +18,6 @@ var keysCompare = exports.keysCompare = function(oldKeys, newKeys, name) {
     oldKeys.forEach(function(item, index) {
         if(newKeys.indexOf(item) === -1) {
             deleted[item] = true;
-            console.log('item removed from list');
             changes.push({
                 name: name + '[' + index + ']',
                 change: 'item removed from list',
@@ -89,7 +88,7 @@ exports.objCompare = function(name, oldArr, newArr, changes, changePath) {
         return item.id;
     });
 
-    var arrChanges = keysCompare(oldKeys, newKeys, name);
+    var arrChanges = keysCompare(oldKeys, newKeys, name, changes);
     return arrChanges.concat(childrenChanges);
 
 };
