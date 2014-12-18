@@ -15,12 +15,7 @@ var changeEmitter = function(name, change, oldValue, newValue, changes) {
 };
 /**
  * Compare two objects, for structure, and types of the values.
- * @param  {String} name     Name, usually the name of the objects you are comparing.
- * @param  {Object} obj      The first object
- * @param  {Object} obj1     The second object
- * @param  {Function} iterator A function to be called on each comparison.
- * @return {Boolean}          Do the two objects have the same structure and types?
- */
+**/
 var changePath = module.exports = function(name, oldData, newData, changes) {
 
     changes = changes || [];
@@ -39,8 +34,6 @@ var changePath = module.exports = function(name, oldData, newData, changes) {
 
 
 function objProperty(name, item, oldData, newData, changes) {
-    console.log('=--=--=--=--=--=--=--=--=-',  name);
-
     var itemChanges = [];
     if(typeof oldData[item] === 'undefined') {
         changeEmitter(name + '.' + item, 'new property added', null, newData[item], changes);

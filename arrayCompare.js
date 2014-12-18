@@ -1,9 +1,7 @@
 'use strict';
 
 var keysCompare = exports.keysCompare = function(oldKeys, newKeys, name, changes) {
-    console.log('-->', oldKeys);
-    console.log('-->', newKeys);
-    var changes = [];
+    var changes = changes || [];
     var objs = {
         old: {},
         latest: {}
