@@ -1,6 +1,9 @@
 'use strict';
 
 var keysCompare = exports.keysCompare = function(oldKeys, newKeys, name, changes) {
+
+    console.log('old key', oldKeys);
+    console.log('new key', newKeys);
     var changes = changes || [];
     var objs = {
         old: {},
@@ -61,13 +64,7 @@ var keysCompare = exports.keysCompare = function(oldKeys, newKeys, name, changes
 /**
  * Take two arrays of objects (each object needs an id),
  * and strips to array of ids which can be passed to keysCompare
- * @param  {[type]} name       [description]
- * @param  {[type]} oldArr     [description]
- * @param  {[type]} newArr     [description]
- * @param  {[type]} changes    [description]
- * @param  {[type]} changePath [description]
- * @return {[type]}            [description]
- */
+ **/
 exports.objCompare = function(name, oldArr, newArr, changes, changePath) {
     // needs to ensure we only let in arrays that contain an id.
     // needs to report on values changed in the array
@@ -81,11 +78,15 @@ exports.objCompare = function(name, oldArr, newArr, changes, changePath) {
 
     var newKeys = newArr.map(function(item, index) {
         // do we need to account for the index offset here?
-        var itemChanges = changePath(name + '[' + index + ']', oldArr[index], newArr[index], changes);
-        childrenChanges.concat(itemChanges);
+        // /////  HERE WOOO OK LETS DO THIS SHIZLE
+        if(oldArr[index] && oldArr[index].id === newArr[index].id) {
+            var itemChanges = changePath(name + '[' + index + ']', oldArr[index], newArr[index], changes);
+            childrenChanges.concat(itemChanges);
+        }
         return item.id;
     });
-
+// need to take account of the offset no?
+// 
     var arrChanges = keysCompare(oldKeys, newKeys, name, changes);
     return arrChanges.concat(childrenChanges);
 

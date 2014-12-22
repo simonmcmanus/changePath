@@ -34,18 +34,19 @@ var changePath = module.exports = function(name, oldData, newData, changes) {
 
 
 function objProperty(name, item, oldData, newData, changes) {
-
-    var itemChanges = [];
-    if(!typeof oldData[item] === 'undefined') {
+    if(!oldData || typeof oldData[item] === 'undefined') {
+        console.log('new property ')
         changeEmitter(name + '.' + item, 'new property added', null, newData[item], changes);
         return;
     }
-
+console.log('-->', name + '.' + item);
     switch(typeof newData[item]) {
         case 'object':
             if(newData[item] instanceof Array) {
                 arrayCompare.objCompare(name + '.' + item, oldData[item], newData[item], changes, changePath);
+                return;
             } else {
+                // check if parent is array, if item has been added no need to say about furher changes
                 changePath(name + '.' + item, oldData[item], newData[item], changes);
             }
             break;
@@ -61,4 +62,4 @@ function objProperty(name, item, oldData, newData, changes) {
             break;
     }
     return changes;
-};
+}
