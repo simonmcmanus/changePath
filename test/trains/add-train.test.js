@@ -4,7 +4,7 @@ var changePath = require('../../index');
 var should = require('should');
 var sinon = require('sinon');
 
-describe.only('given a new train being added', function() {
+describe('given a new train being added', function() {
     var out;
     var oldPos;
     var newPos;

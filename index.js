@@ -39,7 +39,6 @@ function objProperty(name, item, oldData, newData, changes) {
         changeEmitter(name + '.' + item, 'new property added', null, newData[item], changes);
         return;
     }
-console.log('-->', name + '.' + item);
     switch(typeof newData[item]) {
         case 'object':
             if(newData[item] instanceof Array) {
