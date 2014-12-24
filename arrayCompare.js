@@ -1,10 +1,7 @@
 'use strict';
 
-var keysCompare = exports.keysCompare = function(oldKeys, newKeys, name, changes) {
-
-    console.log('old key', oldKeys);
-    console.log('new key', newKeys);
-    var changes = changes || [];
+var keysCompare = exports.keysCompare = function(oldKeys, newKeys, newArr, name, changes) {
+    changes = changes || [];
     var objs = {
         old: {},
         latest: {}
@@ -20,6 +17,7 @@ var keysCompare = exports.keysCompare = function(oldKeys, newKeys, name, changes
         if(newKeys.indexOf(item) === -1) {
             deleted[item] = true;
             changes.push({
+                parent: name,
                 name: name + '[' + index + ']',
                 change: 'item removed from list',
                 item: item
@@ -41,9 +39,10 @@ var keysCompare = exports.keysCompare = function(oldKeys, newKeys, name, changes
             if(oldPos === -1 && newKeys[newPos]) {
                 console.log('new item added to list');
                 changes.push({
+                    parent: name,
                     name: name + '[' + newPos + ']',
                     change: 'new item added to list',
-                    newValue: newKeys[newPos],
+                    newValue: newArr[newPos],
                     position: newPos
                 });
                 offset ++;
@@ -51,6 +50,7 @@ var keysCompare = exports.keysCompare = function(oldKeys, newKeys, name, changes
                 // item moved.
                 console.log('item moved in list');
                 changes.push({
+                    parent: name,
                     name: name + '[' + a + ']',
                     change: 'item moved in list',
                     newPosition: a,
@@ -77,8 +77,6 @@ exports.objCompare = function(name, oldArr, newArr, changes, changePath) {
     var childrenChanges = [];
 
     var newKeys = newArr.map(function(item, index) {
-        // do we need to account for the index offset here?
-        // /////  HERE WOOO OK LETS DO THIS SHIZLE
         if(oldArr[index] && oldArr[index].id === newArr[index].id) {
             var itemChanges = changePath(name + '[' + index + ']', oldArr[index], newArr[index], changes);
             childrenChanges.concat(itemChanges);
@@ -87,7 +85,7 @@ exports.objCompare = function(name, oldArr, newArr, changes, changePath) {
     });
 // need to take account of the offset no?
 // 
-    var arrChanges = keysCompare(oldKeys, newKeys, name, changes);
+    var arrChanges = keysCompare(oldKeys, newKeys, newArr, name, changes);
     return arrChanges.concat(childrenChanges);
 
 };
