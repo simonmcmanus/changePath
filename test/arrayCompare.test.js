@@ -155,22 +155,35 @@ describe('when the module is included', function() {
         });
     });
 
+    // we need to make sure this reports something sensible.
+    // oldArr = ['a', 'b', 'c', 'd', 'e'];
+    // newArr = ['b', 'c', 'd', 'e', 'a'];
 
 
     describe('when the last two numbers are changed.', function() {
         var out;
         beforeEach(function() {
-            oldArr = [1, 2, 3, 4, 5];
-            newArr = [1, 2, 3, 5, 4];
+            oldArr = ['a', 'b', 'c', 'd', 'e'];
+            newArr = ['a', 'b', 'c', 'e', 'd'];
             out  = arrayCompare.keysCompare(oldArr,newArr, newArr, 'start');
+            console.log(out);
         });
-        // it('should report that the item has been added', function() {
-        //     should(out).eql([{
-        //         change: "new item added to list",
-        //         item: 6,
-        //         name: "start[5]"
-        //     }]);
-        // });
+        it('should report that the two items have been swapped over', function() {
+            should(out).eql([{
+                change: 'items swapped',
+                changes: {
+                    d: {
+                        oldPos: 3,
+                        newPos: 4
+                    },
+                    e: {
+                        oldPos: 4,
+                        newPos: 3
+                    }
+                },
+                parent: 'start',
+            }]);
+        });
     });
 
 
