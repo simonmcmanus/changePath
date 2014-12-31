@@ -14,6 +14,7 @@ var keysCompare = exports.keysCompare = function(oldKeys, newKeys, newArr, name,
     var deleted = {};
 
     oldKeys.forEach(function(item, index) {
+
         if(newKeys.indexOf(item) === -1) {
             deleted[item] = true;
             changes.push({
@@ -37,7 +38,7 @@ var keysCompare = exports.keysCompare = function(oldKeys, newKeys, newArr, name,
 
             var oldPos = oldKeys.indexOf(newKeys[newPos]);
             if(oldPos === -1 && newKeys[newPos]) {
-                console.log('new item added to list');
+                console.log('new item added to list', newArr, newPos);
                 changes.push({
                     parent: name,
                     name: name + '[' + newPos + ']',
@@ -47,6 +48,9 @@ var keysCompare = exports.keysCompare = function(oldKeys, newKeys, newArr, name,
                 });
                 offset ++;
             }else if(!deleted[oldKeys[a]]) {
+
+                // if items have been swapped over.
+
                 // item moved.
                 console.log('item moved in list');
                 changes.push({

@@ -59,6 +59,7 @@ describe('given a train which has been removed', function() {
               {
                 "change": "item removed from list",
                 "item": "10006261",
+                "parent": ".trains.Westbound",
                 "name": ".trains.Westbound[1]"
               }
             ]);

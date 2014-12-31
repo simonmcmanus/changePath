@@ -43,6 +43,8 @@ describe('When the changePath function is included', function() {
           should(result[0]).eql({
             change: 'property deleted',
             name: 'name.key',
+            parent: 'name',
+            property: 'key',
             newValue: null,
             oldValue: 'value'
           });
@@ -51,6 +53,8 @@ describe('When the changePath function is included', function() {
           should(result[1]).eql({
             change: 'new property added',
             name: 'name.tea',
+            property: 'tea',
+            parent: 'name',
             newValue: 'value',
             oldValue: null
           });
@@ -68,6 +72,8 @@ describe('When the changePath function is included', function() {
         should(changePath('name', obj1, obj2)[0]).eql({
           change: 'value changed',
           name: 'name.key',
+          property: 'key',
+          parent: 'name',
           oldValue: 'value',
           newValue: 'something else'
         });
@@ -84,7 +90,9 @@ describe('When the changePath function is included', function() {
           change: 'value changed',
           name: 'name.key',
           oldValue: 1,
-          newValue: '1'
+          newValue: '1',
+          property: 'key',
+          parent: 'name'
         });
       });
     });
@@ -138,6 +146,9 @@ describe('When the changePath function is included', function() {
       should(changePath('name', obj1, obj2)[0]).eql({
         change: 'property deleted',
         name: 'name.key.bogdan',
+        property: 'bogdan',
+        parent: 'name.key',
+
         newValue: null,
         oldValue: 'beagle'
       });
@@ -168,6 +179,8 @@ describe('When the changePath function is included', function() {
         change: 'new property added',
         name: 'name.key.bogdan',
         newValue: 'boggy',
+        property: 'bogdan',
+        parent: 'name.key',
         oldValue: null
       });
     });

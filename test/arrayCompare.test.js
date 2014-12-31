@@ -21,13 +21,14 @@ describe('when the module is included', function() {
         before(function() {
             oldArr = [1, 2, 3, 4, 5];
             newArr = [2, 3, 4, 5];
-            out  = arrayCompare.keysCompare(oldArr, newArr, 'start');
+            out  = arrayCompare.keysCompare(oldArr, newArr, {}, 'start');
         });
         it('should report that the item has been removed', function() {
             should(out).eql([{
                 change: "item removed from list",
                 item: 1,
-                name: "start[0]"
+                name: 'start[0]',
+                parent: 'start'
             }]);
         });
     });
@@ -37,19 +38,21 @@ describe('when the module is included', function() {
         before(function() {
             oldArr = [1, 2, 3, 4, 5];
             newArr = [ 3, 4, 5];
-            out  = arrayCompare.keysCompare(oldArr,newArr, 'start');
+            out  = arrayCompare.keysCompare(oldArr,newArr, {}, 'start');
         });
         it('should report that the item has been removed', function() {
             should(out).eql([
                 {
                     change: "item removed from list",
                     item: 1,
-                    name: "start[0]"
+                    name: 'start[0]',
+                    parent: 'start'
                 },
                 {
                     change: "item removed from list",
                     item: 2,
-                    name: "start[1]"
+                    name: 'start[1]',
+                    parent: 'start'
                 }
             ]);
         });
@@ -62,13 +65,14 @@ describe('when the module is included', function() {
         beforeEach(function() {
             oldArr = [1, 2, 3, 4, 5];
             newArr = [1, 2, 4, 5];
-            out  = arrayCompare.keysCompare(oldArr,newArr, 'start');
+            out  = arrayCompare.keysCompare(oldArr,newArr, {}, 'start');
         });
         it('should report that the item has been removed', function() {
             should(out).eql([{
-                change: "item removed from list",
+                change: 'item removed from list',
                 item: 3,
-                name: "start[2]"
+                name: 'start[2]',
+                parent: 'start'
             }]);
         });
     });
@@ -81,13 +85,14 @@ describe('when the module is included', function() {
         beforeEach(function() {
             oldArr = [1, 2, 3, 4, 5];
             newArr = [1, 2, 3, 4];
-            out  = arrayCompare.keysCompare(oldArr,newArr, 'start');
+            out  = arrayCompare.keysCompare(oldArr,newArr, {}, 'start');
         });
         it('should report that the item has been removed', function() {
             should(out).eql([{
-                change: "item removed from list",
+                change: 'item removed from list',
                 item: 5,
-                name: "start[4]"
+                name: 'start[4]',
+                parent: 'start',
             }]);
         });
     });
@@ -98,14 +103,15 @@ describe('when the module is included', function() {
         beforeEach(function() {
             oldArr = [1, 2, 3, 4, 5];
             newArr = [6, 1, 2, 3, 4, 5];
-            out  = arrayCompare.keysCompare(oldArr,newArr, 'start');
+            out  = arrayCompare.keysCompare(oldArr,newArr, newArr, 'start');
         });
         it('should report that the item has been added', function() {
             should(out).eql([{
-                change: "new item added to list",
+                change: 'new item added to list',
                 newValue: 6,
-                name: "start[0]",
-                position: 0
+                name: 'start[0]',
+                position: 0,
+                parent: 'start'
             }]);
         });
     });
@@ -116,14 +122,15 @@ describe('when the module is included', function() {
         beforeEach(function() {
             oldArr = [1, 2, 3, 4, 5];
             newArr = [ 1, 2, 6, 3, 4, 5];
-            out  = arrayCompare.keysCompare(oldArr,newArr, 'start');
+            out  = arrayCompare.keysCompare(oldArr,newArr, newArr, 'start');
         });
         it('should report that the item has been added', function() {
             should(out).eql([{
-                change: "new item added to list",
+                change: 'new item added to list',
                 newValue: 6,
-                name: "start[2]",
-                position: 2
+                name: 'start[2]',
+                position: 2,
+                parent: 'start'
             }]);
         });
     });
@@ -135,14 +142,15 @@ describe('when the module is included', function() {
         beforeEach(function() {
             oldArr = [1, 2, 3, 4, 5];
             newArr = [1, 2, 3, 4, 5, 6];
-            out  = arrayCompare.keysCompare(oldArr,newArr, 'start');
+            out  = arrayCompare.keysCompare(oldArr,newArr, newArr, 'start');
         });
         it('should report that the item has been added', function() {
             should(out).eql([{
-                change: "new item added to list",
+                change: 'new item added to list',
                 newValue: 6,
                 position: 5,
-                name: "start[5]"
+                name: 'start[5]',
+                parent: 'start'
             }]);
         });
     });
@@ -154,7 +162,7 @@ describe('when the module is included', function() {
         beforeEach(function() {
             oldArr = [1, 2, 3, 4, 5];
             newArr = [1, 2, 3, 5, 4];
-            out  = arrayCompare.keysCompare(oldArr,newArr, 'start');
+            out  = arrayCompare.keysCompare(oldArr,newArr, newArr, 'start');
         });
         // it('should report that the item has been added', function() {
         //     should(out).eql([{
@@ -172,7 +180,7 @@ describe('when the module is included', function() {
         beforeEach(function() {
             oldArr = [1, 2, 3, 4, 5];
             newArr = [2, 1, 3, 4, 5];
-            out  = arrayCompare.keysCompare(oldArr,newArr, 'start');
+            out  = arrayCompare.keysCompare(oldArr,newArr, {}, 'start');
         });
         // it('should report that the item has been added', function() {
         //     should(out).eql([{
@@ -188,13 +196,14 @@ describe('when the module is included', function() {
         beforeEach(function() {
             oldArr = ['north', 'south'];
             newArr = ['north', 'west'];
-            out  = arrayCompare.keysCompare(oldArr,newArr, 'start');
+            out  = arrayCompare.keysCompare(oldArr,newArr, newArr, 'start');
         });
         it('should report the remove of the item', function() {
             out[0].should.eql({
                 change: 'item removed from list',
                 item: 'south',
-                name: 'start[1]'
+                name: 'start[1]',
+                parent: 'start'
             });
 
         });
@@ -203,7 +212,8 @@ describe('when the module is included', function() {
                 change: 'new item added to list',
                 newValue: 'west',
                 name: 'start[1]',
-                position: 1
+                position: 1,
+                parent: 'start'
             });
 
         });

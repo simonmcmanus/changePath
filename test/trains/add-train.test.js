@@ -58,9 +58,16 @@ describe('given a new train being added', function() {
               {
                 name: ".trains.Westbound[1]",
                 change: "new item added to list",
-                newValue: "321",
-                position: 1
-              }
+                newValue: {
+                  destination: "West Ruislip",
+                  dueIn: "6:00",
+                  id: "321",
+                  isStalled: false,
+                  location: "Left Loughton"
+              },
+              parent: '.trains.Westbound',
+              position: 1
+            }
             ]);
         });
     })
