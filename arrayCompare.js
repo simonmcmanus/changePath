@@ -29,12 +29,9 @@ var keysCompare = exports.keysCompare = function(oldKeys, newKeys, newArr, name,
         }
     });
 
-
-
-    function hasBeenSwapped() {
-
-    };
-    var offset = 0; // keep track when new items added to the start of the array so all the items pushed down in the array are not classed as moved.
+    // keep track when new items added to the start of the array so all
+    // the items pushed down in the array are not classed as moved.
+    var offset = 0;
     for(var a = 0; a < newKeys.length; a++) {
 
         var newPos = a + offset;
@@ -102,6 +99,14 @@ var keysCompare = exports.keysCompare = function(oldKeys, newKeys, newArr, name,
     // push anything left in changes object onto the changes array.
     return changes;
 };
+
+
+
+
+
+
+
+
 /**
  * Take two arrays of objects (each object needs an id),
  * and strips to array of ids which can be passed to keysCompare

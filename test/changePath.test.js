@@ -16,12 +16,12 @@ describe('When the changePath function is included', function() {
     beforeEach(function(done) {
       obj1 = {
         'key': 'value'
-      }
+      };
       obj2 = {
         'key': 'value'
-      }
+      };
       done();
-    })
+    });
 
 
     describe(' that contain the same string key values pairs', function() {
@@ -37,7 +37,7 @@ describe('When the changePath function is included', function() {
         beforeEach(function() {
           var obj2 = {
             'tea': 'value'
-          }
+          };
           result = changePath('name', obj1, obj2);
         });
         it('the first item in the changes array should be the deletion', function() {
@@ -85,7 +85,7 @@ describe('When the changePath function is included', function() {
       beforeEach(function() {
         obj1.key = 1;
         obj2.key = '1';
-      })
+      });
       it('should return an value changed', function() {
         should(changePath('name', obj1, obj2)[0]).eql({
           change: codes.PROP_UPDATE,
@@ -110,12 +110,12 @@ describe('When the changePath function is included', function() {
         key: {
           harry: 'beagle'
         }
-      }
+      };
       obj2 = {
         key: {
           harry: 'beagle'
         }
-      }
+      };
       done();
     });
 
@@ -165,13 +165,13 @@ describe('When the changePath function is included', function() {
         key: {
           harry: 'beagle',
         }
-      }
+      };
       obj2 = {
         key: {
           harry: 'beagle',
           bogdan: 'boggy'
         }
-      }
+      };
       done();
     });
 

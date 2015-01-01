@@ -156,12 +156,7 @@ describe('when the module is included', function() {
         });
     });
 
-    // we need to make sure this reports something sensible.
-    // oldArr = ['a', 'b', 'c', 'd', 'e'];
-    // newArr = ['b', 'c', 'd', 'e', 'a'];
-
-
-    describe('when the last two numbers are changed.', function() {
+    describe('when the last two letters are swapped.', function() {
         var out;
         beforeEach(function() {
             oldArr = ['a', 'b', 'c', 'd', 'e'];
@@ -187,22 +182,30 @@ describe('when the module is included', function() {
         });
     });
 
-
-
-    describe('when the first two numbers are changed.', function() {
+    describe('when the first two letters are swapped.', function() {
         var out;
         beforeEach(function() {
-            oldArr = [1, 2, 3, 4, 5];
-            newArr = [2, 1, 3, 4, 5];
+            oldArr = ['a', 'b', 'c', 'd', 'e'];
+            newArr = ['b', 'a', 'c', 'd', 'e'];
             out  = arrayCompare.keysCompare(oldArr,newArr, {}, 'start');
         });
-        // it('should report that the item has been added', function() {
-        //     should(out).eql([{
-        //         change: "new item added to list",
-        //         item: 6,
-        //         name: "start[5]"
-        //     }]);
-        // });
+        it('should report that the item have been swapped', function() {
+
+            should(out).eql([{
+                parent: 'start',
+                change: codes.ITEMS_SWAPPED,
+                changes: {
+                    a: {
+                        newPos: 1,
+                        oldPos: 0
+                    },
+                    b: {
+                        newPos: 0,
+                        oldPos: 1
+                    }
+                }
+            }]);
+        });
     });
 
 
@@ -231,7 +234,21 @@ describe('when the module is included', function() {
             });
 
         });
-    })
+    });
+
+
+    describe.only('When the first item is moved to the end', function() {
+        beforeEach(function() {
+            oldArr = ['a', 'b', 'c', 'd', 'e'];
+            newArr = ['b', 'c', 'd', 'e', 'a'];
+            out = arrayCompare.keysCompare(oldArr,newArr, newArr, 'start');
+        });
+        it('should', function() {
+            console.log('out', out);
+        })
+    });
+
+
 
 
 
