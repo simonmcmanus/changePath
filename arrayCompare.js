@@ -95,7 +95,6 @@ var keysCompare = exports.keysCompare = function(oldKeys, newKeys, newArr, name,
                 }
 
                 // need to push out the remains of: changesObj
-
                 changes.push();
             }
         }
