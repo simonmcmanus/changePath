@@ -15,38 +15,38 @@ describe('add-train', function() {
 
 
           oldPos = {
-                "code": "WFD",
-                "name": "Woodford.",
-                "trains": {
-                  "Westbound": [
+                code: 'WFD',
+                name: 'Woodford.',
+                trains: {
+                  Westbound: [
                     {
-                      "id": "1000626",
-                      "dueIn": "6:00",
-                      "destination": "West Ruislip",
-                      "isStalled": false,
-                      "location": "Left Loughton"
+                      id: '1000626',
+                      dueIn: '6:00',
+                      destination: 'West Ruislip',
+                      isStalled: false,
+                      location: 'Left Loughton'
                     }
                   ]
                 }
               };
           newPos = {
-                "code": "WFD",
-                "name": "Woodford.",
-                "trains": {
-                  "Westbound": [
+                code: 'WFD',
+                name: 'Woodford.',
+                trains: {
+                  Westbound: [
                     {
-                      "id": "1000626",
-                      "dueIn": "6:00",
-                      "destination": "West Ruislip",
-                      "isStalled": false,
-                      "location": "Left Loughton"
+                      id: '1000626',
+                      dueIn: '6:00',
+                      destination: 'West Ruislip',
+                      isStalled: false,
+                      location: 'Left Loughton'
                     },
                     {
-                      "id": "321",
-                      "dueIn": "6:00",
-                      "destination": "West Ruislip",
-                      "isStalled": false,
-                      "location": "Left Loughton"
+                      id: '321',
+                      dueIn: '6:00',
+                      destination: 'West Ruislip',
+                      isStalled: false,
+                      location: 'Left Loughton'
                     }
                   ]
                 }
@@ -59,14 +59,14 @@ describe('add-train', function() {
           it('should report the addition', function() {
               should(out).eql([
                 {
-                  name: ".trains.Westbound[1]",
+                  name: '.trains.Westbound[1]',
                   change: codes.ITEM_CREATE,
                   newValue: {
-                    destination: "West Ruislip",
-                    dueIn: "6:00",
-                    id: "321",
+                    destination: 'West Ruislip',
+                    dueIn: '6:00',
+                    id: '321',
                     isStalled: false,
-                    location: "Left Loughton"
+                    location: 'Left Loughton'
                 },
                 parent: '.trains.Westbound',
                 position: 1
