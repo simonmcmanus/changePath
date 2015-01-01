@@ -18,7 +18,7 @@ describe('when the module is included', function() {
     });
 
 
-    describe('when an item is removed from the start of an array', function() {
+    describe.only('when an item is removed from the start of an array', function() {
         before(function() {
             oldArr = [1, 2, 3, 4, 5];
             newArr = [2, 3, 4, 5];
@@ -227,6 +227,7 @@ describe('when the module is included', function() {
         it('should also report the addition of the new item.', function() { 
             out[1].should.eql({
                 change: codes.ITEM_CREATE,
+                newValue: 'west',
                 name: 'start[1]',
                 position: 1,
                 item: 'west',
