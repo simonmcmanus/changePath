@@ -89,24 +89,29 @@ var results = changePath('newData', oldData, newData);
 The following changes codes would be reported against an object:
 
 * PROP_CREATE
-    A new property has been added to an object.
+A new property has been added to an object.
+
 * PROP_UPDATE
-    The value of a property has changed.
+The value of a property has changed.
+
 * PROP_DELETE
-    A property no longer exists.
+A property no longer exists.
 
 ###Arrays
 
 The following change codes would be reports against an array:
 
 * ITEM_CREATE
-    A new item has been added to the array.
+A new item has been added to the array.
+
 * ITEM_DELETE
-    An item has been removed from an array.
+An item has been removed from an array.
+
 * ITEM_MOVE
-    An items position in the array has changed. When new items are added/removed from the start of an array the offset is considered so the other items in the array should not report being moved.
+An items position in the array has changed. When new items are added/removed from the start of an array the offset is considered so the other items in the array should not report being moved.
+
 * ITEMS_SWAPPED
-    Two items in the list have change position
+Two items in the list have change position
 
 
 #TODO
