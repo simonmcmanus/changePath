@@ -17,7 +17,6 @@
   },
   "devDependencies": {
     "mocha": "*",
-    "sinon": "^1.12.2",
     "should": "^4.4.2"
   },
   "repository": {

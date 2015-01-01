@@ -5,7 +5,6 @@ var should = require('should');
 
 var codes = require('../../codes');
 
-var sinon = require('sinon');
 
 describe('add-train', function() {
   describe('given a new train being added', function() {

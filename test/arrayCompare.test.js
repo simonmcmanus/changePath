@@ -2,7 +2,6 @@
 
 var hasChanged = require('../index.js');
 var should = require('should');
-var sinon = require('sinon');
 
 var codes = require('../codes');
 
