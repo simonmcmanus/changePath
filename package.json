@@ -7,14 +7,19 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --watch --recursive --reporter spec",
-    "devtest": "mocha --reporter spec"
+    "test": "mocha  --recursive --reporter spec",
+    "devtest": "mocha --watch --reporter spec"
   },
   "author": "Simon McManus",
   "license": "BSD-2-Clause",
   "dependencies": {
-      "mocha": "*"
-    },
+    "lodash": "^2.4.1"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "sinon": "^1.12.2",
+    "should": "^4.4.2"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/simonmcmanus/changePath"
