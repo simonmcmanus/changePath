@@ -2,7 +2,6 @@
 var changePath = require('../index');
 
 var should = require('should');
-var sinon = require('sinon');
 
 var codes = require('../codes');
 
