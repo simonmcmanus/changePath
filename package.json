@@ -13,11 +13,11 @@
   "author": "Simon McManus",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "lodash": "^2.4.1"
+    "lodash": "2.*"
   },
   "devDependencies": {
     "mocha": "*",
-    "should": "^4.4.2"
+    "should": "4.*"
   },
   "repository": {
     "type": "git",
