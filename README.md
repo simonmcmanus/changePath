@@ -1,7 +1,7 @@
 #ChangePath
 
 
-WIP. Not ready for use.
+WARNING: EXPERIMENTAL MODULE
 
 Given two objects, check for changes and report back the differences.
 
@@ -10,9 +10,9 @@ Given two objects, check for changes and report back the differences.
 
 Designed to make responding to data changes particuarly easy at the most granular level.
 
-Im my case when a user connects they are given the cached data, the next time the JSON api is polled the two versions are compared with changePath, relevant changes are then sent out over websokets to the  user.
+Im my case when a user connects they are served the cached data (as html), the next time the JSON api is polled the two versions are compared with changePath, relevant changes are then sent out over websokets.
 
-The idea being to ensure the user is always looking at the latest data but minimise data being sent over the wire.
+The intention being to ensure the user is always looking at the latest data but minimise data being sent over the wire.
 
 ##Install
 
@@ -75,36 +75,38 @@ var newData = {
 
 var results = changePath('newData', oldData, newData);
 
-// would result in a new item added: 
-
 
 
 ```
 
 
-#Change Codes
+##Change Codes
 
-PROP_ADD
-PROP_DELETE
-STR_CHANGE
-INT_CHANGE
+###Objects
 
-ITEMS_SWAPPED
-ITEM_ADD
-ITEM_DELETE
-ITEM_MOVE
+The following changes codes would be reported against an object:
+
+* PROP_CREATE
+    A new property has been added to an object.
+* PROP_UPDATE
+    The value of a property has changed.
+* PROP_DELETE
+    A property no longer exists.
+
+###Arrays
+
+The following change codes would be reports against an array:
+
+* ITEM_CREATE
+    A new item has been added to the array.
+* ITEM_DELETE
+    An item has been removed from an array.
+* ITEM_MOVE
+    An items position in the array has changed. When new items are added/removed from the start of an array the offset is considered so the other items in the array should not report being moved.
+* ITEMS_SWAPPED
+    Two items in the list have change position
 
 
 #TODO
-
-ARRAY_PROP_CHANGE
-TYPE CHANGE
-
-
-
-* New property added
-* Property removed
-* List item added
-* List item removed
-* List item moved
-* List items  swapped
+* Simple arrays
+* TYPE_CHANGE

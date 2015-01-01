@@ -1,8 +1,9 @@
-// some project specific data that I needed to make sure was working. 
-var changePath = require('../../index');
+'use strict';
 
+// some project specific data that I needed to make sure was working.
+var changePath = require('../../index');
 var should = require('should');
-var sinon = require('sinon');
+var codes = require('../../codes');
 
 describe('given a train which has been removed', function() {
 
@@ -10,41 +11,30 @@ describe('given a train which has been removed', function() {
     var oldPos;
     var newPos;
     beforeEach(function() {
-
-
         oldPos = {
-              "code": "WFD",
-              "name": "Woodford.",
-              "trains": {
-                "Westbound": [
+              code: 'WFD',
+              name: 'Woodford.',
+              trains: {
+                Westbound: [
                   {
-                    "id": "1000626",
-                    "dueIn": "6:00",
-                    "destination": "West Ruislip",
-                    "isStalled": false,
-                    "location": "Left Loughton"
+                    id: '1000626',
+                    dueIn: '6:00',
                   },
                   {
-                    "id": "10006261",
-                    "dueIn": "6:00",
-                    "destination": "West Ruxislip",
-                    "isStalled": false,
-                    "location": "Left Loughton"
+                    'id': '10006261',
+                    'dueIn': '6:00',
                   }
                 ]
               }
             };
         newPos = {
-              "code": "WFD",
-              "name": "Woodford.",
-              "trains": {
-                "Westbound": [
+              code: 'WFD',
+              name: 'Woodford.',
+              trains: {
+                Westbound: [
                   {
-                    "id": "1000626",
-                    "dueIn": "6:00",
-                    "destination": "West Ruislip",
-                    "isStalled": false,
-                    "location": "Left Loughton"
+                    id: '1000626',
+                    dueIn: '6:00',
                   }
                 ]
               }
@@ -57,14 +47,12 @@ describe('given a train which has been removed', function() {
         it('should report the removal', function() {
             should(out).eql([
               {
-                "change": "item removed from list",
-                "item": "10006261",
-                "parent": ".trains.Westbound",
-                "name": ".trains.Westbound[1]"
+                change: codes.ITEM_DELETE,
+                item: '10006261',
+                parent: '.trains.Westbound',
+                name: ".trains.Westbound[1]"
               }
             ]);
         });
-    })
-})
-
-
+    });
+});

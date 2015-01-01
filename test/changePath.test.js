@@ -4,6 +4,8 @@ var changePath = require('../index');
 var should = require('should');
 var sinon = require('sinon');
 
+var codes = require('../codes');
+
 describe('When the changePath function is included', function() {
   it('is should return a function', function() {
     (typeof changePath).should.equal('function');
@@ -41,7 +43,7 @@ describe('When the changePath function is included', function() {
         });
         it('the first item in the changes array should be the deletion', function() {
           should(result[0]).eql({
-            change: 'property deleted',
+            change: codes.PROP_DELETE,
             name: 'name.key',
             parent: 'name',
             property: 'key',
@@ -51,7 +53,7 @@ describe('When the changePath function is included', function() {
         });
         it('the second item in the changes array should be the addition of the new key', function() {
           should(result[1]).eql({
-            change: 'new property added',
+            change: codes.PROP_CREATE,
             name: 'name.tea',
             property: 'tea',
             parent: 'name',
@@ -70,7 +72,7 @@ describe('When the changePath function is included', function() {
 
       it(' should report the updated value', function() {
         should(changePath('name', obj1, obj2)[0]).eql({
-          change: 'value changed',
+          change: codes.PROP_UPDATE,
           name: 'name.key',
           property: 'key',
           parent: 'name',
@@ -87,7 +89,7 @@ describe('When the changePath function is included', function() {
       })
       it('should return an value changed', function() {
         should(changePath('name', obj1, obj2)[0]).eql({
-          change: 'value changed',
+          change: codes.PROP_UPDATE,
           name: 'name.key',
           oldValue: 1,
           newValue: '1',
@@ -144,7 +146,7 @@ describe('When the changePath function is included', function() {
 
     it('should report the deletion', function() {
       should(changePath('name', obj1, obj2)[0]).eql({
-        change: 'property deleted',
+        change: codes.PROP_DELETE,
         name: 'name.key.bogdan',
         property: 'bogdan',
         parent: 'name.key',
@@ -176,7 +178,7 @@ describe('When the changePath function is included', function() {
 
     it('should report the deletion', function() {
       should(changePath('name', obj1, obj2)[0]).eql({
-        change: 'new property added',
+        change: codes.PROP_CREATE,
         name: 'name.key.bogdan',
         newValue: 'boggy',
         property: 'bogdan',
@@ -186,201 +188,4 @@ describe('When the changePath function is included', function() {
     });
   });
 
-//   describe('Given two objects', function() {
-//     beforeEach(function() {
-//       var ob1 = {
-//         beagles: [
-//           {
-//             'key': 'value'
-//           },
-//           {
-//             'key1': 'value1'
-//           }
-//         ]
-//       }
-//       var ob2 = {
-//         beagles: [
-//           {
-//             'key': 'value'
-//           },
-//           {
-//             'key1': 'value1'
-//           }
-//         ]
-//       }
-//     });
-//     describe('which contain the same array of object', function() {
-//       it('should return true', function() {
-//         should(hasChanged('name', obj1, obj1)).equal(true)
-//       });
-//     });
-
-//     describe('which contain the same array of object but with a different key', function() {
-//       it('should return true', function() {
-//         before(function() {
-//           delete  obj2.beagles[1].key1;
-//           obj2.beagles[1].Ley1 = 'bogs';
-//         });
-//         should(hasChanged('name', obj1, obj2)).equal(false)
-//       });
-//     })
-//   });
-
-//   describe('Given two objects containing three keys each', function() {
-//     var obj1;
-//     var obj2;
-//     var iterator;
-//     before(function(done) {
-//       obj1 = {
-//         'key': 'value',
-//         'key1': 'value',
-//         'key2': 'value'
-//       }
-//       obj2 = {
-//         'key': 'value',
-//         'key1': 'value',
-//         'key2': 'value'
-//       }
-
-//       iterator = sinon.spy();
-//       hasChanged('name', obj1, obj2, iterator);
-//       done();
-//     })
-//     describe('when called', function() {
-//       it('it should call the iterator 3 times.', function() {
-//         should(iterator.callCount).equal(3);
-//       });
-//     });
-//   });
-
-
-//   describe('Given two objects containing three keys each (one of which should fail.)', function() {
-//     var obj1;
-//     var obj2;
-//     var iterator;
-//     before(function(done) {
-//       obj1 = {
-//         'key': 'value',
-//         'key1': 'value',
-//         'asdkey2': 'value'
-//       }
-//       obj2 = {
-//         'key': 'value',
-//         'key1': 'value',
-//         'key2': 'value'
-//       }
-
-//       iterator = sinon.spy();
-//       hasChanged('name', obj1, obj2, iterator);
-//       done();
-//     })
-//     describe('when called', function() {
-//       it('it should call the iterator 3 times.', function() {
-//         should(iterator.callCount).equal(3);
-//       });
-//     });
-//   });
-
-
-//   describe('given an iterator function', function() {
-
-//     describe('Given two objects containing one key value fail which fails', function(done) {
-//       var obj1;
-//       var obj2;
-//       before(function(done) {
-//         obj1 = {
-//           'key': 'value'
-//         }
-//         obj2 = {
-//           'asdkey2': 'value'
-//         }
-
-//         iterator = sinon.spy();
-
-//         hasChanged('name', obj1, obj2, iterator);
-//         done();
-//       })
-//       describe('when called', function() {
-//         it('should pass the iterator the reasons for failure.', function() {
-//           should(iterator.calledWith(obj1, obj2, 'key', 'Expected object key `key` to exist.', 'name')).equal(true);
-//         });
-//       });
-//     });
-
-
-//     describe('given two objects containing nested objects.', function() {
-
-//       var obj1;
-//       var obj2;
-//       var iterator;
-
-//       before(function(done) {
-
-//         obj1 = {
-//           key: {
-//             bacon: {
-//               'cat': 'tiger'
-//             }
-//           }
-//         };
-//         obj2 = {
-//           key: {
-//             bacon: {
-//               'cat': 'tiger'
-//             }
-//           }
-//         };
-//         iterator = sinon.spy();
-//         hasChanged('starting', obj1, obj2, iterator);
-//         done();
-//       });
-
-//       describe('when hasChanged is called', function() {
-//         it('iterator should get called once as only one key/value pair is compared', function() {
-//           should(iterator.callCount).equal(1);
-//         });
-//         it('should pass in the object path of the keys on failure and success', function() {
-//           should(iterator.calledWith(obj1.key.bacon, obj2.key.bacon, 'cat', false, 'starting.key.bacon')).equal(true);
-//         });
-//       });
-//     });
-
-//     describe('given two objects containing an array of objects.', function() {
-
-//       var obj1;
-//       var obj2;
-//       var iterator;
-
-//       before(function(done) {
-
-//         obj1 = {
-//           key: [
-//             {
-//               dog: 'beagle'
-//             }
-//           ]
-//         };
-//         obj2 = {
-//           key: [
-//             {
-//               dog: 'beagle'
-//             }
-//           ]
-//         };
-
-//         iterator = sinon.spy();
-//         hasChanged('starting', obj1, obj2, iterator);
-//         done();
-//       });
-
-//       describe('when hasChanged is called', function() {
-//         it('iterator should get called once as there is one key/value comparisons', function() {
-//           should(iterator.callCount).equal(1);
-//         });
-//         it('should pass in the object path of the keys on failure and success.', function() {
-//           should(iterator.calledWithExactly(obj1.key[0], obj2.key[0], 'dog', false, 'starting.key[0]')).equal(true);
-//         });
-//       });
-//     });
-//   });
 });

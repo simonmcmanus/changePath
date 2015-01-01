@@ -4,6 +4,7 @@ var _ = require('lodash');
 
 var arrayCompare = require('./arrayCompare');
 
+var codes = require('./codes');
 
 var changeEmitter = function(name, key, change, oldValue, newValue, changes) {
 
@@ -26,7 +27,7 @@ var changePath = module.exports = function(name, oldData, newData, changes) {
 
     for(var oldItem in oldData) {
         if(typeof newData[oldItem] === 'undefined') {
-            changeEmitter(name, oldItem, 'property deleted', oldData[oldItem], null, changes);
+            changeEmitter(name, oldItem, codes.PROP_DELETE, oldData[oldItem], null, changes);
         }
     }
 
@@ -39,7 +40,7 @@ var changePath = module.exports = function(name, oldData, newData, changes) {
 
 function objProperty(name, item, oldData, newData, changes) {
     if(!oldData || typeof oldData[item] === 'undefined') {
-        changeEmitter(name, item, 'new property added', null, newData[item], changes);
+        changeEmitter(name, item, codes.PROP_CREATE, null, newData[item], changes);
         return;
     }
     switch(typeof newData[item]) {
@@ -51,16 +52,10 @@ function objProperty(name, item, oldData, newData, changes) {
                 changePath(name + '.' + item, oldData[item], newData[item], changes);
             }
             break;
-        case 'string':
+        default:
             if(oldData[item] !== newData[item]) {
-                changeEmitter(name, item, 'value changed', oldData[item], newData[item], changes);
+                changeEmitter(name, item, codes.PROP_UPDATE, oldData[item], newData[item], changes);
             }
-            break;
-        case 'number':
-            if(oldData[item] !== newData[item]) {
-                changeEmitter(name, item, 'number changed', oldData[item], newData[item], changes);
-            }
-            break;
     }
     return changes;
 }

@@ -4,6 +4,8 @@ var hasChanged = require('../index.js');
 var should = require('should');
 var sinon = require('sinon');
 
+var codes = require('../codes');
+
 
 var arrayCompare = require('../arrayCompare');
 
@@ -25,7 +27,7 @@ describe('when the module is included', function() {
         });
         it('should report that the item has been removed', function() {
             should(out).eql([{
-                change: "item removed from list",
+                change: codes.ITEM_DELETE,
                 item: 1,
                 name: 'start[0]',
                 parent: 'start'
@@ -43,13 +45,13 @@ describe('when the module is included', function() {
         it('should report that the item has been removed', function() {
             should(out).eql([
                 {
-                    change: "item removed from list",
+                    change: codes.ITEM_DELETE,
                     item: 1,
                     name: 'start[0]',
                     parent: 'start'
                 },
                 {
-                    change: "item removed from list",
+                    change: codes.ITEM_DELETE,
                     item: 2,
                     name: 'start[1]',
                     parent: 'start'
@@ -69,7 +71,7 @@ describe('when the module is included', function() {
         });
         it('should report that the item has been removed', function() {
             should(out).eql([{
-                change: 'item removed from list',
+                change: codes.ITEM_DELETE,
                 item: 3,
                 name: 'start[2]',
                 parent: 'start'
@@ -89,7 +91,7 @@ describe('when the module is included', function() {
         });
         it('should report that the item has been removed', function() {
             should(out).eql([{
-                change: 'item removed from list',
+                change: codes.ITEM_DELETE,
                 item: 5,
                 name: 'start[4]',
                 parent: 'start',
@@ -107,7 +109,7 @@ describe('when the module is included', function() {
         });
         it('should report that the item has been added', function() {
             should(out).eql([{
-                change: 'new item added to list',
+                change: codes.ITEM_CREATE,
                 newValue: 6,
                 name: 'start[0]',
                 position: 0,
@@ -126,7 +128,7 @@ describe('when the module is included', function() {
         });
         it('should report that the item has been added', function() {
             should(out).eql([{
-                change: 'new item added to list',
+                change: codes.ITEM_CREATE,
                 newValue: 6,
                 name: 'start[2]',
                 position: 2,
@@ -146,7 +148,7 @@ describe('when the module is included', function() {
         });
         it('should report that the item has been added', function() {
             should(out).eql([{
-                change: 'new item added to list',
+                change: codes.ITEM_CREATE,
                 newValue: 6,
                 position: 5,
                 name: 'start[5]',
@@ -170,7 +172,7 @@ describe('when the module is included', function() {
         });
         it('should report that the two items have been swapped over', function() {
             should(out).eql([{
-                change: 'items swapped',
+                change: codes.ITEMS_SWAPPED,
                 changes: {
                     d: {
                         oldPos: 3,
@@ -213,7 +215,7 @@ describe('when the module is included', function() {
         });
         it('should report the remove of the item', function() {
             out[0].should.eql({
-                change: 'item removed from list',
+                change: codes.ITEM_DELETE,
                 item: 'south',
                 name: 'start[1]',
                 parent: 'start'
@@ -222,7 +224,7 @@ describe('when the module is included', function() {
         });
         it('should also report the addition of the new item.', function() { 
             out[1].should.eql({
-                change: 'new item added to list',
+                change: codes.ITEM_CREATE,
                 newValue: 'west',
                 name: 'start[1]',
                 position: 1,

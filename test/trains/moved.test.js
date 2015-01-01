@@ -3,6 +3,8 @@ var changePath = require('../../index');
 
 var should = require('should');
 
+var codes = require('../../codes');
+
 describe('given a train which has moved', function() {
     var out;
     var oldPos;
@@ -51,7 +53,7 @@ describe('given a train which has moved', function() {
                 property: 'location',
                 newValue: 'Left Buckhurt Hill',
                 oldValue: 'Left Loughton',
-                change: 'value changed'
+                change: codes.PROP_UPDATE
               }
             ]);
         });

@@ -1,5 +1,7 @@
 'use strict';
 
+var codes = require('./codes');
+
 var keysCompare = exports.keysCompare = function(oldKeys, newKeys, newArr, name, changes) {
     changes = changes || [];
     var changesObj = {};
@@ -21,7 +23,7 @@ var keysCompare = exports.keysCompare = function(oldKeys, newKeys, newArr, name,
             changes.push({
                 parent: name,
                 name: name + '[' + index + ']',
-                change: 'item removed from list',
+                change: codes.ITEM_DELETE,
                 item: item
             });
         }
@@ -48,7 +50,7 @@ var keysCompare = exports.keysCompare = function(oldKeys, newKeys, newArr, name,
                 changes.push({
                     parent: name,
                     name: name + '[' + newPos + ']',
-                    change: 'new item added to list',
+                    change: codes.ITEM_CREATE,
                     newValue: newArr[newPos],
                     position: newPos
                 });
@@ -62,7 +64,7 @@ var keysCompare = exports.keysCompare = function(oldKeys, newKeys, newArr, name,
 
                     var change = {
                         parent: name,
-                        change: 'items swapped',
+                        change: codes.ITEMS_SWAPPED,
                         changes: {}
                     };
 
@@ -78,9 +80,6 @@ var keysCompare = exports.keysCompare = function(oldKeys, newKeys, newArr, name,
                         newPos: a
                     };
                     changes.push(change);
-
-
-
                 } else {
                     console.log('GOT A MOVE', newKeys[newPos], oldPos);
                     // looks like a move, but add to the changes obj so we
@@ -88,19 +87,14 @@ var keysCompare = exports.keysCompare = function(oldKeys, newKeys, newArr, name,
                     changesObj[oldPos] = {
                         parent: name,
                         name: changeName,
-                        change: 'item moved in list',
+                        change: codes.ITEM_MOVE,
                         id: newKeys[newPos],
                         newPosition: a,
                         oldPosition: oldPos
                     };
                 }
 
-                // if items have been swapped over.
-                // 
-
-                console.log('item moved in list', newKeys[newPos]);
-
-
+                // need to push out the remains of: changesObj
 
                 changes.push();
             }
