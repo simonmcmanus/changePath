@@ -18,8 +18,8 @@ describe('when the module is included', function() {
     });
 
 
-    describe.only('when an item is removed from the start of an array', function() {
-        before(function() {
+    describe('when an item is removed from the start of an array', function() {
+        beforeEach(function() {
             oldArr = [1, 2, 3, 4, 5];
             newArr = [2, 3, 4, 5];
             out  = arrayCompare.keysCompare(oldArr, newArr, {}, 'start');
@@ -37,21 +37,21 @@ describe('when the module is included', function() {
     describe('when two items are removed from the start an array', function() {
         var out;
         before(function() {
-            oldArr = [1, 2, 3, 4, 5];
-            newArr = [ 3, 4, 5];
+            oldArr = ['a', 'b', 'c', 'd', 'e'];
+            newArr = [ 'c', 'd', 'e'];
             out  = arrayCompare.keysCompare(oldArr,newArr, {}, 'start');
         });
         it('should report that the item has been removed', function() {
             should(out).eql([
                 {
                     change: codes.ITEM_DELETE,
-                    item: 1,
+                    item: 'a',
                     name: 'start[0]',
                     parent: 'start'
                 },
                 {
                     change: codes.ITEM_DELETE,
-                    item: 2,
+                    item: 'b',
                     name: 'start[1]',
                     parent: 'start'
                 }
@@ -166,18 +166,12 @@ describe('when the module is included', function() {
         });
         it('should report that the two items have been swapped over', function() {
             should(out).eql([{
-                change: codes.ITEMS_SWAPPED,
-                changes: {
-                    d: {
-                        oldPos: 3,
-                        newPos: 4
-                    },
-                    e: {
-                        oldPos: 4,
-                        newPos: 3
-                    }
-                },
-                parent: 'start',
+                change: codes.ITEM_MOVE,
+                item: 'd',
+                name: 'start[3]',
+                newPosition: 4,
+                originalPosition: 3,
+                parent: 'start'
             }]);
         });
     });
@@ -227,7 +221,6 @@ describe('when the module is included', function() {
         it('should also report the addition of the new item.', function() { 
             out[1].should.eql({
                 change: codes.ITEM_CREATE,
-                newValue: 'west',
                 name: 'start[1]',
                 position: 1,
                 item: 'west',
