@@ -15,7 +15,7 @@ var changeEmitter = function(name, key, change, oldValue, newValue, changes) {
         parent: name,
         newValue: newValue,
         oldValue: oldValue,
-        change: change
+        code: change
     });
 };
 

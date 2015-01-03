@@ -26,7 +26,7 @@ describe('when the module is included', function() {
         });
         it('should report that the item has been removed', function() {
             should(out).eql([{
-                change: codes.ITEM_DELETE,
+                code: codes.ITEM_DELETE,
                 item: 1,
                 name: 'start[0]',
                 parent: 'start'
@@ -44,13 +44,13 @@ describe('when the module is included', function() {
         it('should report that the item has been removed', function() {
             should(out).eql([
                 {
-                    change: codes.ITEM_DELETE,
+                    code: codes.ITEM_DELETE,
                     item: 'a',
                     name: 'start[0]',
                     parent: 'start'
                 },
                 {
-                    change: codes.ITEM_DELETE,
+                    code: codes.ITEM_DELETE,
                     item: 'b',
                     name: 'start[1]',
                     parent: 'start'
@@ -70,7 +70,7 @@ describe('when the module is included', function() {
         });
         it('should report that the item has been removed', function() {
             should(out).eql([{
-                change: codes.ITEM_DELETE,
+                code: codes.ITEM_DELETE,
                 item: 3,
                 name: 'start[2]',
                 parent: 'start'
@@ -90,7 +90,7 @@ describe('when the module is included', function() {
         });
         it('should report that the item has been removed', function() {
             should(out).eql([{
-                change: codes.ITEM_DELETE,
+                code: codes.ITEM_DELETE,
                 item: 5,
                 name: 'start[4]',
                 parent: 'start',
@@ -108,7 +108,7 @@ describe('when the module is included', function() {
         });
         it('should report that the item has been added', function() {
             should(out).eql([{
-                change: codes.ITEM_CREATE,
+                code: codes.ITEM_CREATE,
                 item: 6,
                 name: 'start[0]',
                 position: 0,
@@ -127,7 +127,7 @@ describe('when the module is included', function() {
         });
         it('should report that the item has been added', function() {
             should(out).eql([{
-                change: codes.ITEM_CREATE,
+                code: codes.ITEM_CREATE,
                 item: 6,
                 name: 'start[2]',
                 position: 2,
@@ -147,7 +147,7 @@ describe('when the module is included', function() {
         });
         it('should report that the item has been added', function() {
             should(out).eql([{
-                change: codes.ITEM_CREATE,
+                code: codes.ITEM_CREATE,
                 position: 5,
                 item: 6,
                 name: 'start[5]',
@@ -165,7 +165,7 @@ describe('when the module is included', function() {
         });
         it('should report that the two items have been swapped over', function() {
             should(out).eql([{
-                change: codes.ITEM_MOVE,
+                code: codes.ITEM_MOVE,
                 item: 'd',
                 name: 'start[3]',
                 newPosition: 4,
@@ -210,7 +210,7 @@ describe('when the module is included', function() {
         });
         it('should report the remove of the item', function() {
             out[0].should.eql({
-                change: codes.ITEM_DELETE,
+                code: codes.ITEM_DELETE,
                 item: 'south',
                 name: 'start[1]',
                 parent: 'start'
@@ -219,7 +219,7 @@ describe('when the module is included', function() {
         });
         it('should also report the addition of the new item.', function() { 
             out[1].should.eql({
-                change: codes.ITEM_CREATE,
+                code: codes.ITEM_CREATE,
                 name: 'start[1]',
                 position: 1,
                 item: 'west',
@@ -240,7 +240,7 @@ describe('when the module is included', function() {
             out[0].should.eql({
                 name: 'start[0]',
                 parent: 'start',
-                change: 'ITEM_MOVE',
+                code: 'ITEM_MOVE',
                 item: 'a',
                 originalPosition: 0,
                 newPosition: 4

@@ -13,7 +13,6 @@ describe('add-train', function() {
       var newPos;
       beforeEach(function() {
 
-
           oldPos = {
                 code: 'WFD',
                 name: 'Woodford.',
@@ -58,11 +57,11 @@ describe('add-train', function() {
               should(out).eql([
                 {
                   name: '.trains.Westbound[1]',
-                  change: codes.ITEM_CREATE,
+                  code: codes.ITEM_CREATE,
                   item: "321",
-                parent: '.trains.Westbound',
-                position: 1
-              }
+                  parent: '.trains.Westbound',
+                  position: 1
+                }
               ]);
           });
       });

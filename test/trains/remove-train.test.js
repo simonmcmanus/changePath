@@ -47,7 +47,7 @@ describe('given a train which has been removed', function() {
         it('should report the removal', function() {
             should(out).eql([
               {
-                change: codes.ITEM_DELETE,
+                code: codes.ITEM_DELETE,
                 item: '10006261',
                 parent: '.trains.Westbound',
                 name: ".trains.Westbound[1]"

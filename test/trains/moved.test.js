@@ -53,7 +53,7 @@ describe('given a train which has moved', function() {
                 property: 'location',
                 newValue: 'Left Buckhurt Hill',
                 oldValue: 'Left Loughton',
-                change: codes.PROP_UPDATE
+                code: codes.PROP_UPDATE
               }
             ]);
         });

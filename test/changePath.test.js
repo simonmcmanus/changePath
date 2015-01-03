@@ -42,7 +42,7 @@ describe('When the changePath function is included', function() {
         });
         it('the first item in the changes array should be the deletion', function() {
           should(result[0]).eql({
-            change: codes.PROP_DELETE,
+            code: codes.PROP_DELETE,
             name: 'name.key',
             parent: 'name',
             property: 'key',
@@ -52,7 +52,7 @@ describe('When the changePath function is included', function() {
         });
         it('the second item in the changes array should be the addition of the new key', function() {
           should(result[1]).eql({
-            change: codes.PROP_CREATE,
+            code: codes.PROP_CREATE,
             name: 'name.tea',
             property: 'tea',
             parent: 'name',
@@ -71,7 +71,7 @@ describe('When the changePath function is included', function() {
 
       it(' should report the updated value', function() {
         should(changePath('name', obj1, obj2)[0]).eql({
-          change: codes.PROP_UPDATE,
+          code: codes.PROP_UPDATE,
           name: 'name.key',
           property: 'key',
           parent: 'name',
@@ -88,7 +88,7 @@ describe('When the changePath function is included', function() {
       });
       it('should return an value changed', function() {
         should(changePath('name', obj1, obj2)[0]).eql({
-          change: codes.PROP_UPDATE,
+          code: codes.PROP_UPDATE,
           name: 'name.key',
           oldValue: 1,
           newValue: '1',
@@ -145,7 +145,7 @@ describe('When the changePath function is included', function() {
 
     it('should report the deletion', function() {
       should(changePath('name', obj1, obj2)[0]).eql({
-        change: codes.PROP_DELETE,
+        code: codes.PROP_DELETE,
         name: 'name.key.bogdan',
         property: 'bogdan',
         parent: 'name.key',
@@ -177,7 +177,7 @@ describe('When the changePath function is included', function() {
 
     it('should report the deletion', function() {
       should(changePath('name', obj1, obj2)[0]).eql({
-        change: codes.PROP_CREATE,
+        code: codes.PROP_CREATE,
         name: 'name.key.bogdan',
         newValue: 'boggy',
         property: 'bogdan',
