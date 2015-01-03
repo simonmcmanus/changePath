@@ -6,8 +6,8 @@ var arrayCompare = require('./arrayCompare');
 
 var codes = require('./codes');
 
+// add a single change to the change array.
 var changeEmitter = function(name, key, change, oldValue, newValue, changes) {
-
     //  name.replace(/\[[1-9]]/g, '[*]')
     changes.push({
         property: key,
@@ -18,6 +18,12 @@ var changeEmitter = function(name, key, change, oldValue, newValue, changes) {
         change: change
     });
 };
+
+// adds array of changes to the existing changes array.
+function pushChanges(changes, newChanges) {
+    Array.prototype.push.apply(changes, newChanges);
+};
+
 /**
  * Compare two objects, for structure, and types of the values.
 **/
@@ -27,6 +33,7 @@ var changePath = module.exports = function(name, oldData, newData, changes) {
 
     for(var oldItem in oldData) {
         if(typeof newData[oldItem] === 'undefined') {
+            // todo - proto check here.
             changeEmitter(name, oldItem, codes.PROP_DELETE, oldData[oldItem], null, changes);
         }
     }
@@ -38,24 +45,27 @@ var changePath = module.exports = function(name, oldData, newData, changes) {
 };
 
 
+
+
 function objProperty(name, item, oldData, newData, changes) {
     if(!oldData || typeof oldData[item] === 'undefined') {
         changeEmitter(name, item, codes.PROP_CREATE, null, newData[item], changes);
-        return;
-    }
-    switch(typeof newData[item]) {
-        case 'object':
-            if(newData[item] instanceof Array) {
-                arrayCompare.objCompare(name + '.' + item, oldData[item], newData[item], changes, changePath);
-                return;
-            } else {
-                changePath(name + '.' + item, oldData[item], newData[item], changes);
-            }
-            break;
-        default:
-            if(oldData[item] !== newData[item]) {
-                changeEmitter(name, item, codes.PROP_UPDATE, oldData[item], newData[item], changes);
-            }
+    } else {
+        switch(typeof newData[item]) {
+            case 'object':
+                if(newData[item] instanceof Array) {
+                    var arrayChanges = arrayCompare.objCompare(name + '.' + item, oldData[item], newData[item], changes, changePath);
+                    pushChanges(changes, arrayChanges);
+
+                } else {
+                    changePath(name + '.' + item, oldData[item], newData[item], changes);
+                }
+                break;
+            default:
+                if(oldData[item] !== newData[item]) {
+                    changeEmitter(name, item, codes.PROP_UPDATE, oldData[item], newData[item], changes);
+                }
+        }
     }
     return changes;
 }

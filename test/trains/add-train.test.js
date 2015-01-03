@@ -54,20 +54,12 @@ describe('add-train', function() {
           out = changePath('', oldPos, newPos);
       });
       describe('when called', function() {
-
-
           it('should report the addition', function() {
               should(out).eql([
                 {
                   name: '.trains.Westbound[1]',
                   change: codes.ITEM_CREATE,
-                  newValue: {
-                    destination: 'West Ruislip',
-                    dueIn: '6:00',
-                    id: '321',
-                    isStalled: false,
-                    location: 'Left Loughton'
-                },
+                  item: "321",
                 parent: '.trains.Westbound',
                 position: 1
               }

@@ -162,7 +162,6 @@ describe('when the module is included', function() {
             oldArr = ['a', 'b', 'c', 'd', 'e'];
             newArr = ['a', 'b', 'c', 'e', 'd'];
             out  = arrayCompare.keysCompare(oldArr,newArr, newArr, 'start');
-            console.log(out);
         });
         it('should report that the two items have been swapped over', function() {
             should(out).eql([{
@@ -246,7 +245,6 @@ describe('when the module is included', function() {
                 originalPosition: 0,
                 newPosition: 4
             })
-            console.log('out', out);
         });
         it('should only report the move', function() {
             out.length.should.equal(1);

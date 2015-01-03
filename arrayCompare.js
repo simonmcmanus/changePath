@@ -6,7 +6,9 @@ var diff = require('./array-diff-converter');
 
 
 var keysCompare = exports.keysCompare = function(oldKeys, newKeys, newArr, name, changes) {
-    return diff(oldKeys, newKeys, newArr, name);
+    var out = diff(oldKeys, newKeys, newArr, name);
+
+    return out;
 };
 
 
