@@ -13,6 +13,7 @@
   "author": "Simon McManus",
   "license": "BSD-2-Clause",
   "dependencies": {
+    "array-diff": "0.0.1",
     "lodash": "*"
   },
   "devDependencies": {
