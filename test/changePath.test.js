@@ -187,4 +187,62 @@ describe('When the changePath function is included', function() {
     });
   });
 
+  describe('change in order and value change', function() {
+    var oldData;
+    var newData;
+    before(function() {
+      oldData = {
+        items: [{
+          id: 1,
+          value: 'bacon'
+        }, {
+          id: 2,
+          value: 'toast'
+        }]
+      };
+
+      newData = {
+        items: [{
+          id: 2,
+          value: 'cheese on'
+        },
+        {
+          id: 1,
+          value: 'ham'
+        }
+        ]
+      };
+    });
+
+    it('should report report the move and value changes', function() {
+      should(changePath('name', oldData, newData)).eql(
+      [
+        {
+          code: codes.PROP_UPDATE,
+          name: 'name.items[0].value',
+          newValue: 'cheese on',
+          oldValue: 'toast',
+          parent: 'name.items[0]',
+          property: 'value'
+        },
+          {
+          code: codes.PROP_UPDATE,
+          name: 'name.items[1].value',
+          newValue: 'ham',
+          oldValue: 'bacon',
+          parent: 'name.items[1]',
+          property: 'value'
+        },
+          {
+          code: codes.ITEM_MOVE,
+          item: 1,
+          name: 'name.items[0]',
+          newPosition: 1,
+          originalPosition: 0,
+          parent: 'name.items'
+        }
+      ]);
+    });
+  })
+
 });

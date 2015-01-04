@@ -3,6 +3,8 @@
 
 WARNING: EXPERIMENTAL MODULE
 
+CODE IS TERRIBLY INEFFICIENT. JUST A POC.
+
 Given two objects, check for changes and report back the differences.
 
 [![Build Status](https://travis-ci.org/simonmcmanus/changePath.svg?branch=master)](https://travis-ci.org/simonmcmanus/changePath)

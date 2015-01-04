@@ -30,12 +30,16 @@ exports.objCompare = function(name, oldArr, newArr, changes, changePath) {
     // needs to add changes in children objects
 
     var oldKeys = oldArr.map( function(item) { return item.id; } );
+    var oldKeyedObj = oldArr.reduce(function(obj, item) {
+        obj[item.id] = item;
+        return obj;
+    }, {});
 
     var childrenChanges = [];
 
     var newKeys = newArr.map(function(item, index) {
-        if(oldArr[index] && oldArr[index].id === newArr[index].id) {
-            var itemChanges = changePath(name + '[' + index + ']', oldArr[index], newArr[index], changes);
+        if(oldArr[index] && oldArr[index].id && newArr[index].id) {
+            var itemChanges = changePath(name + '[' + index + ']', oldKeyedObj[newArr[index].id], newArr[index], changes);
             childrenChanges.concat(itemChanges);
         }
         return item.id;
