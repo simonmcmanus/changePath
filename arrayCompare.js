@@ -5,17 +5,10 @@ var codes = require('./codes');
 var diff = require('./array-diff-converter');
 
 
-var keysCompare = exports.keysCompare = function(oldKeys, newKeys, newArr, name, changes) {
+var keysCompare = exports.keysCompare = function(oldKeys, newKeys, newArr, name) {
     var out = diff(oldKeys, newKeys, newArr, name);
-
     return out;
 };
-
-
-
-
-
-
 
 
 /**
@@ -39,7 +32,7 @@ exports.objCompare = function(name, oldArr, newArr, changes, changePath) {
 
     var newKeys = newArr.map(function(item, index) {
         if(oldArr[index] && oldArr[index].id && newArr[index].id) {
-            var itemChanges = changePath(name + '[' + index + ']', oldKeyedObj[newArr[index].id], newArr[index], changes);
+            var itemChanges = changePath(name + '["' + newArr[index].id + '"]', oldKeyedObj[newArr[index].id], newArr[index], changes);
             childrenChanges.concat(itemChanges);
         }
         return item.id;

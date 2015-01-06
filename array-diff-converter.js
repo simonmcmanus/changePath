@@ -25,7 +25,7 @@ function toObj(obj, item, index) {
 // compares two arrays - mainly deals with converting
 // the format from array diff.
 // massively inefficiely but just a proof of concept atm.
-var d = module.exports = function(oldArr, newArr, CompleteObj, name) {
+var d = module.exports = function(oldArr, newArr, completeObj, name) {
     var difference = diff(oldArr, newArr);
     var oldObj = oldArr.reduce(toObj, {});
     var newObj = newArr.reduce(toObj, {});
@@ -38,14 +38,16 @@ var d = module.exports = function(oldArr, newArr, CompleteObj, name) {
             newData.item = i;
             switch(data.code) {
                 case codes.ITEM_DELETE:
-                    newData.name = name + '[' + oldObj[i] + ']';
+                    newData.name = name + '["' + i + '"]';
                 break;
                 case codes.ITEM_CREATE:
-                    newData.name = name + '[' + newObj[i] + ']';
+                    newData.name = name + '["' + i + '"]';
+                    newData.newValue = completeObj[newObj[i]];
+
                     newData.position = newObj[i];
                 break;
                 case codes.ITEM_MOVE:
-                    newData.name = name + '[' + oldObj[i] + ']';
+                    newData.name = name + '["' + i + '"]';
                     newData.originalPosition = cuts[i];
                     newData.newPosition = newObj[i];
                 break;
@@ -91,46 +93,3 @@ var d = module.exports = function(oldArr, newArr, CompleteObj, name) {
     });
     return changes;
 };
-
-
-
-
-
-
-
-
-
-
-// oldArr = ['a', 'b', 'c', 'd', 'e'];
-// newArr = ['b', 'c', 'd', 'e', 'a'];
-
-
-
-
-// console.log(d(oldArr, newArr));
-
-
-
-// // // swapped
-// var oldArr = ['a', 'b', 'c'];
-// var newArr = ['b', 'a', 'c'];
-
-// // // swapped
-// var oldArr = ['a', 'b', 'c'];
-// var newArr = ['a', 'c', 'b'];
-
-
-// // // moved to the end
-// var oldArr = ['a', 'b', 'c'];
-// var newArr = ['b', 'c', 'a'];
-
-
-// // last item moved first
-// var oldArr = ['a', 'b', 'c'];
-// var newArr = ['c', 'a', 'b'];
-
-
-// // // swapped
-// var oldArr = ['a', 'b', 'c', 'd', 'e'];
-// var newArr = ['b', 'a', 'c', 'e', 'd'];
-

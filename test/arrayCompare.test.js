@@ -20,15 +20,15 @@ describe('when the module is included', function() {
 
     describe('when an item is removed from the start of an array', function() {
         beforeEach(function() {
-            oldArr = [1, 2, 3, 4, 5];
-            newArr = [2, 3, 4, 5];
+            oldArr = ['a', 'b', 'c', 'd', 'e'];
+            newArr = ['b', 'c', 'd', 'e'];
             out  = arrayCompare.keysCompare(oldArr, newArr, {}, 'start');
         });
         it('should report that the item has been removed', function() {
             should(out).eql([{
                 code: codes.ITEM_DELETE,
-                item: 1,
-                name: 'start[0]',
+                item: 'a',
+                name: 'start["a"]',
                 parent: 'start'
             }]);
         });
@@ -46,13 +46,13 @@ describe('when the module is included', function() {
                 {
                     code: codes.ITEM_DELETE,
                     item: 'a',
-                    name: 'start[0]',
+                    name: 'start["a"]',
                     parent: 'start'
                 },
                 {
                     code: codes.ITEM_DELETE,
                     item: 'b',
-                    name: 'start[1]',
+                    name: 'start["b"]',
                     parent: 'start'
                 }
             ]);
@@ -72,7 +72,7 @@ describe('when the module is included', function() {
             should(out).eql([{
                 code: codes.ITEM_DELETE,
                 item: 3,
-                name: 'start[2]',
+                name: 'start["3"]',
                 parent: 'start'
             }]);
         });
@@ -92,7 +92,7 @@ describe('when the module is included', function() {
             should(out).eql([{
                 code: codes.ITEM_DELETE,
                 item: 5,
-                name: 'start[4]',
+                name: 'start["5"]',
                 parent: 'start',
             }]);
         });
@@ -109,9 +109,10 @@ describe('when the module is included', function() {
         it('should report that the item has been added', function() {
             should(out).eql([{
                 code: codes.ITEM_CREATE,
-                item: 6,
-                name: 'start[0]',
+                name: 'start["6"]',
                 position: 0,
+                item: 6,
+                newValue: 6,
                 parent: 'start'
             }]);
         });
@@ -128,8 +129,9 @@ describe('when the module is included', function() {
         it('should report that the item has been added', function() {
             should(out).eql([{
                 code: codes.ITEM_CREATE,
-                item: 6,
-                name: 'start[2]',
+                newValue: 6,
+                item:6,
+                name: 'start["6"]',
                 position: 2,
                 parent: 'start'
             }]);
@@ -149,8 +151,9 @@ describe('when the module is included', function() {
             should(out).eql([{
                 code: codes.ITEM_CREATE,
                 position: 5,
-                item: 6,
-                name: 'start[5]',
+                item:6,
+                newValue: 6,
+                name: 'start["6"]',
                 parent: 'start'
             }]);
         });
@@ -167,7 +170,7 @@ describe('when the module is included', function() {
             should(out).eql([{
                 code: codes.ITEM_MOVE,
                 item: 'd',
-                name: 'start[3]',
+                name: 'start["d"]',
                 newPosition: 4,
                 originalPosition: 3,
                 parent: 'start'
@@ -212,7 +215,7 @@ describe('when the module is included', function() {
             out[0].should.eql({
                 code: codes.ITEM_DELETE,
                 item: 'south',
-                name: 'start[1]',
+                name: 'start["south"]',
                 parent: 'start'
             });
 
@@ -220,9 +223,10 @@ describe('when the module is included', function() {
         it('should also report the addition of the new item.', function() { 
             out[1].should.eql({
                 code: codes.ITEM_CREATE,
-                name: 'start[1]',
-                position: 1,
+                name: 'start["west"]',
                 item: 'west',
+                position: 1,
+                newValue: 'west',
                 parent: 'start'
             });
 
@@ -238,7 +242,7 @@ describe('when the module is included', function() {
         });
         it('should report the move', function() {
             out[0].should.eql({
-                name: 'start[0]',
+                name: 'start["a"]',
                 parent: 'start',
                 code: 'ITEM_MOVE',
                 item: 'a',

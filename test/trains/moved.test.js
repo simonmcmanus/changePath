@@ -48,8 +48,8 @@ describe('given a train which has moved', function() {
         it('should return the location change', function() {
             out.should.eql([
               {
-                name: '.trains.Westbound[0].location',
-                parent: '.trains.Westbound[0]',
+                name: '.trains.Westbound["1000626"].location',
+                parent: '.trains.Westbound["1000626"]',
                 property: 'location',
                 newValue: 'Left Buckhurt Hill',
                 oldValue: 'Left Loughton',

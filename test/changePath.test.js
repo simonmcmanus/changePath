@@ -219,24 +219,24 @@ describe('When the changePath function is included', function() {
       [
         {
           code: codes.PROP_UPDATE,
-          name: 'name.items[0].value',
+          name: 'name.items["2"].value',
           newValue: 'cheese on',
           oldValue: 'toast',
-          parent: 'name.items[0]',
+          parent: 'name.items["2"]',
           property: 'value'
         },
           {
           code: codes.PROP_UPDATE,
-          name: 'name.items[1].value',
+          name: 'name.items["1"].value',
           newValue: 'ham',
           oldValue: 'bacon',
-          parent: 'name.items[1]',
+          parent: 'name.items["1"]',
           property: 'value'
         },
           {
           code: codes.ITEM_MOVE,
           item: 1,
-          name: 'name.items[0]',
+          name: 'name.items["1"]',
           newPosition: 1,
           originalPosition: 0,
           parent: 'name.items'

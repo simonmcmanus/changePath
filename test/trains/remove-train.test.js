@@ -50,7 +50,7 @@ describe('given a train which has been removed', function() {
                 code: codes.ITEM_DELETE,
                 item: '10006261',
                 parent: '.trains.Westbound',
-                name: ".trains.Westbound[1]"
+                name: '.trains.Westbound["10006261"]'
               }
             ]);
         });
