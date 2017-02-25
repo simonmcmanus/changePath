@@ -1,5 +1,7 @@
 #ChangePath
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/simonmcmanus/changePath.svg)](https://greenkeeper.io/)
+
 
 WARNING: EXPERIMENTAL MODULE
 
