@@ -17,7 +17,7 @@
     "lodash": "*"
   },
   "devDependencies": {
-    "mocha": "*",
+    "mocha": ">=3.5.2",
     "should": "*"
   },
   "repository": {
